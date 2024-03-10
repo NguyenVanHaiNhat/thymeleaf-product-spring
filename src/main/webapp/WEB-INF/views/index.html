@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/layout :: head">
+    <!--    - Gắn phần head và footer đã được khai báo trong file layout.html:-->
+    <meta charset="UTF-8">
+    <title>ListProduct</title>
+</head>
+<body>
+<h3>Product</h3>
+<p>
+    <a th:href="@{/products/create}">
+        Add new Product
+    </a>
+</p>
+
+<table id="products">
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Name</th>
+        <th>price</th>
+        <th>description</th>
+        <th>producer</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row,rowStat : ${products}">
+        <td th:text="${rowStat.count}"></td>
+        <td th:text="${row.getName()}"></td>
+        <td th:text="${row.getPrice()}"></td>
+        <td th:text="${row.getDescription()}"></td>
+        <td th:text="${row.getProducer()}"></td>
+        <td><a th:href="@{/products/{id}/edit(id=${row.getId()})}">edit</a> </td>
+        <td><a th:href="@{/products/{id}/delete(id=${row.getId()})}">delete</a> </td>
+        <td><a th:href="@{/products/{id}/view(id=${row.getId()})}">view</a> </td>
+    </tr>
+    </tbody>
+    <div class="notify">
+        <div th:if="${success}">
+            <span th:text="${success}"></span>
+        </div>
+    </div>
+</table>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
